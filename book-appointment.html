@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - Hospital Management System</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #e2f0d9, #f0f0f0); /* Light gradient */
+            color: #333;
+            animation: fadeIn 1s ease-in-out; /* Fade-in effect */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        header {
+            background-color: #28a745; /* Green */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .logo {
+            width: 100px;
+            transition: transform 0.3s ease;
+        }
+
+        header .logo:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            padding: 8px;
+            border-radius: 5px;
+            position: relative; /* For the underline effect */
+            overflow: hidden;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.7);
+            left: 0;
+            bottom: -5px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        nav a:hover::after {
+            transform: scaleX(1); /* Show the underline on hover */
+        }
+
+        main {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 25px;
+            background-color: white;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            animation: slideIn 0.8s ease-in-out;
+            overflow: hidden; /* For the glow effect */
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #28a745; /* Green heading */
+            text-align: center;
+            border-bottom: 2px solid #28a745;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #555;
+        }
+
+        input[type="text"], input[type="date"] {
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+            position: relative; /* For glow effect */
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus {
+            border-color: #28a745;
+            background-color: #f8f9fa; /* Light background on focus */
+            outline: none;
+            box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Glow effect on focus */
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* For glow effect */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+            box-shadow: 0 0 8px rgba(40, 167, 69, 0.5); /* Glow effect on hover */
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 40px;
+            color: #555;
+        }
+
+        p {
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+        }
+
+        footer {
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: sticky; /* Changed to sticky */
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+
+            main {
+                padding: 15px;
+                margin: 20px 10px;
+            }
+
+            nav a {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Hospital Logo" class="logo">
+        <nav>
+            <a href="index.html#departments">Departments</a>
+            <a href="index.html#services">Services</a>
+            <a href="index.html#testimonials">Testimonials</a>
+            <a href="register.html">Register</a>
+            <a href="book-appointment.html">Appointments</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="appointments">
+            <h2>Book Appointment</h2>
+            <form>
+                <label for="patientName">Patient Name</label>
+                <input type="text" id="patientName" name="patientName" placeholder="Enter Patient's Full Name" required>
+                
+                <label for="appointmentDate">Appointment Date</label>
+                <input type="date" id="appointmentDate" name="appointmentDate" required>
+                
+                <button type="submit">Book Appointment</button>
+            </form>
+            <h3>View Appointments</h3>
+            <p>No appointments booked yet.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Hospital Management System</p>
+    </footer>
+</body>
+</html>

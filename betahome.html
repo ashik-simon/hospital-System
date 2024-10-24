@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            overflow-x: hidden; /* Avoid horizontal scroll */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        header img {
+            width: 100px;
+            margin-right: 20px;
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 0;
+            flex-grow: 1;
+            transition: color 0.3s;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffdd57;
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        #hero {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 40px;
+            text-align: center;
+            background-color: rgba(230, 240, 255, 0.9);
+            backdrop-filter: blur(10px);
+            margin-bottom: 50px;
+        }
+
+        .option-window {
+            border: 2px solid rgba(0, 123, 255, 0.6);
+            border-radius: 8px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-window:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 123, 255, 0.1);
+        }
+
+        .option-window h2 {
+            margin-bottom: 10px;
+            color: #007bff;
+            transition: color 0.3s;
+        }
+
+        .option-window:hover h2 {
+            color: #0056b3;
+        }
+
+        .option-window img {
+            width: 50px;
+            transition: transform 0.3s;
+        }
+
+        .option-window:hover img {
+            transform: scale(1.2);
+        }
+
+        /* Slider */
+        .slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 50px;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+        }
+
+        .slides img {
+            width: 100%;
+            object-fit: cover;
+            height: 400px;
+            border-radius: 8px;
+        }
+
+        .dots {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .dot {
+            display: inline-block;
+            margin: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #bbb;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot:hover {
+            background-color: #007bff;
+        }
+
+        .active {
+            background-color: #007bff;
+        }
+
+        /* Departments Section */
+        #departments {
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 50px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        #departments h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #007bff;
+        }
+
+        #departments ul {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        #departments ul li {
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+
+        #departments ul li:hover {
+            background-color: rgba(0, 123, 255, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Testimonials */
+        #testimonials {
+            padding: 40px;
+            text-align: center;
+            background-color: rgba(249, 249, 249, 0.9);
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+            margin-bottom: 50px;
+        }
+
+        .testimonial {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .testimonial:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* FAQ Section */
+        #faq {
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #faq h2 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        #faq h3 {
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1000;
+        }
+
+        footer a {
+            margin: 0 10px;
+            color: #ffdd57;
+            text-decoration: none;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #007bff;
+            text-shadow: 0 0 5px #ffdd57, 0 0 10px #ffdd57;
+        }
+
+        /* Glowing Button */
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.8), 0 0 30px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img src="logo.png" alt="Hospital Logo">
+        <h1>Hospital Name</h1>
+        <nav>
+            <ul>
+                <li><a href="login.html">Book an appointment</a></li>
+                <li><a href="register.html">Register new Patient</a></li>
+                <li><a href="#departments">Departments</a></li>
+                <li><a href="#map">Map</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="hero">
+        <div class="option-window">
+            <h2>Emergency Services</h2>
+            <img src="emergency.png" alt="Emergency">
+        </div>
+        <div class="option-window">
+            <h2>Appointment Booking</h2>
+            <img src="appointment.png" alt="Appointment">
+        </div>
+        <div class="option-window">
+            <h2>Patient Care</h2>
+            <img src="patient-care.png" alt="Patient Care">
+        </div>
+    </div>
+
+    <div class="slider">
+        <div class="slides">
+            <div class="slide">
+                <img src="image4.jpg" alt="Slide 1">
+            </div>
+            <div class="slide">
+                <img src="image5.jpg" alt="Slide 2">
+            </div>
+            <div class="slide">
+                <img src="image6.jpg" alt="Slide 3">
+            </div>
+            <div class="slide">
+                <img src="image7.jpg" alt="Slide 3">
+            </div>
+            <div class="slide">
+                <img src="image8.jpg" alt="Slide 3">
+            </div>
+        </div>
+        <div class="dots">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+        </div>
+    </div>
+
+    <div id="departments">
+        <h2>Our Departments</h2>
+        <ul>
+            <li>Cardiology</li>
+            <li>Orthopedics</li>
+            <li>Pediatrics</li>
+            <li>Neurology</li>
+            <li>Oncology</li>
+        </ul>
+    </div>
+
+    <div id="testimonials">
+        <h2>Patient Testimonials</h2>
+        <div class="testimonial">
+            <p>"The care I received was exceptional! Highly recommend!"</p>
+            <cite>- Patient A</cite>
+        </div>
+        <div class="testimonial">
+            <p>"The doctors were attentive and truly cared about my health."</p>
+            <cite>- Patient B</cite>
+        </div>
+    </div>
+
+    <div id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <h3>What services do you offer?</h3>
+        <p>We offer a wide range of services, including emergency care, surgeries, and outpatient services.</p>
+        <h3>How can I book an appointment?</h3>
+        <p>You can book an appointment online through our website or by calling our helpline.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Hospital Name. All rights reserved.</p>
+        <p>
+            <a href="#about">About Us</a> | 
+            <a href="#contact">Contact Us</a>
+        </p>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            const slides = document.querySelector('.slides');
+            const dots = document.querySelectorAll('.dot');
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove('active');
+            }
+            slideIndex++;
+            if (slideIndex > dots.length) { slideIndex = 1; }
+            slides.style.transform = 'translateX(' + (-(slideIndex - 1) * 100) + '%)';
+            dots[slideIndex - 1].classList.add('active');
+            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
+
+        function currentSlide(n) {
+            slideIndex = n;
+            showSlides();
+        }
+    </script>
+</body>
+
+</html>
